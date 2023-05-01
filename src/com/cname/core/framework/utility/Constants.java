@@ -1,9 +1,7 @@
 package com.cname.core.framework.utility;
 
 public class Constants 
-{
-	public static String browser = "chrome";
-	
+{	
 	public static int waitTime = 60;
 	
 	public static int browserWidth = 850;

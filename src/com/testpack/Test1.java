@@ -1,23 +1,49 @@
 package com.testpack;
 
-import org.openqa.selenium.By;
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.WebElement;
+import org.testng.annotations.Test;
 
 import com.cname.core.framework.utility.Constants;
-import com.cname.core.framework.utility.FileUploadhandler;
+import com.cname.core.framework.utility.Global;
+import com.cname.core.framework.webdriver.Driver;
+import com.cname.core.framework.webdriver.FindBy;
+import com.cname.core.framework.webdriver.SeWebDriver;
+import com.cname.nbrown.TestInitialization.TestInitializationScript;
 
-public class Test1
+public class Test1 extends TestInitializationScript
 {
-	public static void main(String[] args) throws InterruptedException
+	@Test
+	public void searchProTest() throws Exception
 	{
-		System.setProperty("webdriver.chrome.driver", Constants.chromeDriverPath);
 		
-		WebDriver driver = new ChromeDriver();
+		WebDriver driver = Driver.getBrowserInstance();
+		seWDriver.maximizeWindow();
+		seWDriver.setOwnWindowSize();
+		seWDriver.get();
+		seWDriver.implicitlyWait();
 		
-		driver.get("file:///C:/Users/shalinik/Downloads/UploadC.html");
-		driver.findElement(By.xpath("//label[text()='Select a file:']")).click();
-		Thread.sleep(5000);
-		FileUploadhandler.uploadFile("D:\\Automation_batch\\Test3.java");
+		Thread.sleep(3000);
+		
+		try
+		{
+			WebElement w1 = driver.findElement(FindBy.seByMechanism("xpath", "//button[text()='Accept All Cookies']"));
+			w1.click();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		WebElement searchTxtBoxWebELm = driver.findElement(FindBy.seByMechanism("name", "searchString"));
+		searchTxtBoxWebELm.sendKeys("jeans");
+		
+		driver.findElement(FindBy.seByMechanism("id", "searchButton")).click();
+		
+		seWDriver.waitForWebElementToBoVisible("xpath", "(//img[@class='js-plp-image'])[1]");
+		
+		
 	}
 }
